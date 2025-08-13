@@ -1,0 +1,43 @@
+1.) Interpret the user command (e.g., “Plan a trip to CA on a sunny day”).
+
+2.) Call a weather API to find sunny days in California.
+
+3.) Query your calendar (stored in Postgres or Oracle) to find available dates.
+
+4.) Search for hotels with rating > 4 on available sunny days.
+
+5.) Book tickets only if hotel preferences are met.
+
+
+
+
+
+Component
+
+-- (LLM) --
+Where it is used: Interpreting user command, orchestrating flow, generating responses	
+What it is used for: Natural language understanding, decision-making, tool calling
+
+-- (RAG) --	
+Where it is used: Fetching user preferences or travel policies from documents	
+What it is used for: Context-aware decision-making based on real-world documents
+
+-- (Vector DB) --	
+Where it is used: Behind RAG, storing embeddings of documents	
+What it is used for: Semantic search and fast retrieval of relevant document chunks
+
+-- (Postgres / Oracle DB) --	
+Where it is used: Querying user calendar availability and possibly storing booking history	
+What it is used for: Structured data access: available dates, user schedule, past trips
+
+-- (Weather API) --	
+Where it is used: Called after LLM decides to check for sunny days	
+What it is used for: Get weather forecast for California
+
+-- (Hotel API) --	
+Where it is used: Called after finding valid dates	
+What it is used for: Search for hotels with rating > 4
+
+-- (Booking API) --	
+Where it is used: Final step after hotel match	
+What it is used for: Book the trip
