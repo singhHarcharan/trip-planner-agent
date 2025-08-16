@@ -2,6 +2,7 @@ import os
 import httpx 
 import json
 from Services.llm_service import process_query
+from Services.weather_service import get_weather_dates
 from dotenv import load_dotenv 
 from openai import OpenAI 
 
@@ -47,7 +48,10 @@ def get_relevant_dates_based_on_weather(destination, condition):
         # Here you would typically call a weather API to get the relevant dates
         # For example, you might use OpenWeatherMap or similar service
         print(f"2.) Fetching relevant dates for {destination} with condition {condition}")
-        return ["2023-10-15", "2023-10-16", "2023-10-17"]
+        relevant_dates = get_weather_dates(destination, condition)
+        print(f"Relevant dates: {relevant_dates}")
+        # return ['2025-08-18', '2025-08-20', '2025-08-21']
+        return relevant_dates
     except Exception as e:
         print(f"Error occurred while fetching dates: {e}")
         return []

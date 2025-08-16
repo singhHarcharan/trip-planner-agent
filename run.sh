@@ -49,5 +49,5 @@ if [ -z "$GOOGLE_API_KEY" ]; then
 fi
 
 # Step 7: Run your agent
-echo "🚀 Running main.py..."
-python main.py
+echo "🚀 Running app.py..."
+python app.py
