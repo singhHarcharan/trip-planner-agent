@@ -3,6 +3,7 @@ import httpx
 import json
 from Services.llm_service import process_query
 from Services.weather_service import get_weather_dates
+from Services.db_service import get_holidays_dates
 from dotenv import load_dotenv 
 from openai import OpenAI 
 
@@ -41,14 +42,14 @@ def get_response_from_llm(prompt):
 # Function to get relevant dates based on weather condition
 # This function receives a destination and a weather condition in string format
 # and returns a list of relevant dates.
-def get_relevant_dates_based_on_weather(destination, condition):
+def get_relevant_dates_based_on_weather(destination, condition, days = 30):
     # Right now, I'm returning static response without calling weather API to build my app
     # In future, I will call weather API to get the relevant dates
     try:
         # Here you would typically call a weather API to get the relevant dates
         # For example, you might use OpenWeatherMap or similar service
         print(f"2.) Fetching relevant dates for {destination} with condition {condition}")
-        relevant_dates = get_weather_dates(destination, condition)
+        relevant_dates = get_weather_dates(destination, condition, days)
         print(f"Relevant dates: {relevant_dates}")
         # return ['2025-08-18', '2025-08-20', '2025-08-21']
         return relevant_dates
@@ -58,13 +59,13 @@ def get_relevant_dates_based_on_weather(destination, condition):
 
 
 # Function to get available dates from your calendar
-def get_available_dates(source, destination, dates):
+def get_available_dates(employee_id):
     # Right now, I'm returning static response without querying calendar to build my app
     # In future, I will query calendar to get the available dates
     try:
-        print(f"3.) Fetching available dates from calendar for travel from {source} to {destination}")
-        # Here you would typically query your calendar database (Postgres or Oracle)
-        return ["2023-10-15", "2023-10-16"]
+        print(f"3.) Querying calendar for employee ID: {employee_id}")
+        available_dates = get_holidays_dates(employee_id)
+        return available_dates
     except Exception as e:
         print(f"Error occurred while fetching available dates: {e}")
         return []

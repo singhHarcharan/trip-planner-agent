@@ -3,6 +3,7 @@ import index as index
 
 prompt = "Book a flight from New York to San Francisco on Sunny day of this month"
 
+# ------------------------------------------------------------------------------------------------
 # 1.) Function call to get response from LLM (to extract entities)
 # data = promptToData.get_response_from_llm(prompt)
 # print("Fetching response from LLM for the prompt:")
@@ -10,18 +11,50 @@ prompt = "Book a flight from New York to San Francisco on Sunny day of this mont
 # print("Response from LLM:")
 # print(data)
 # print("\n")
+# Returns: 
+"""
+    For Success Case:
+    {
+        "status": "success",
+        "data": {
+            "source": "New York"
+            "destination": "California",
+            "weather_preference": "sunny",
+            "travel_dates": "weekend",
+            "hotel_preferences": null,
+            "other_info": "family trip",
+        }
+    }
 
+    For Case other than trip planning:
+    {
+        "status": "success",
+        "data": "This AI agent is designed specifically to help plan trips. Please ask something like 'Plan a trip to CA on a sunny day'."
+    }
+"""
+
+# ------------------------------------------------------------------------------------------------
 # 2.) Function call to get relevant date based on the weather by calling weather API
-dates = index.get_relevant_dates_based_on_weather("Amritsar, Punjab", "rainy")
-print("Relevant dates based on weather condition:")
-print(dates)
-print("\n")
-
-# # 3.) Function to Query your calendar (stored in Postgres or Oracle) to find available dates.
-# available_dates = index.get_available_dates(data['source'], data['destination'], dates)
-# print("Available dates based on your calendar:")
-# print(available_dates)
+# dates = index.get_relevant_dates_based_on_weather("Amritsar, Punjab", "rainy")
+# print("Relevant dates based on weather condition:")
+# print(dates)
 # print("\n")
+# return ['2025-08-18', '2025-08-20', '2025-08-21']
+
+# ------------------------------------------------------------------------------------------------
+# 3.) Function to Query your calendar (stored in Postgres or Oracle) to find available dates.
+# available_dates = index.get_available_dates(data['source'], data['destination'], dates)
+
+EMPLOYEE_ID = 1001  # Harcharanpreet's ID
+available_dates = index.get_available_dates(EMPLOYEE_ID)
+
+print("📅 Upcoming holidays:")
+for holiday in available_dates:
+    print("→", holiday)
+print("\n")
+# return ['2025-08-18', '2025-08-20', '2025-08-21']
+
+# ------------------------------------------------------------------------------------------------
 
 # # 4.) Function to Search for hotels with rating > 4 on available sunny days.
 # hotels = index.search_hotels(data['destination'], available_dates)
