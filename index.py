@@ -72,7 +72,7 @@ def get_available_dates(employee_id):
     
 
 # Function to search for hotels with rating > 4 on available sunny days
-def search_hotels(destination, available_dates):
+def search_hotels(destination, available_dates, hotel_preference):
     # Right now, I'm returning static response without searching hotels to build my app
     # In future, I will search hotels to get the available hotels
     try:

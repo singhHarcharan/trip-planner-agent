@@ -1,12 +1,18 @@
-1.) Interpret the user command (e.g., “Plan a trip to CA on a sunny day”).
+1. LLM → Extract entities from prompt
 
-2.) Call a weather API to find sunny days in California.
+2. RAG → Fetch user preferences from Chroma DB
 
-3.) Query your calendar (stored in Postgres or Oracle) to find available dates.
+3. Weather API → Find sunny days
 
-4.) Search for hotels with rating > 4 on available sunny days.
+4. Calendar DB → Find available dates from Postgres
 
-5.) Book tickets only if hotel preferences are met.
+5. Hotel API → Search hotels with rating > 4
+
+6. RAG → Check hotel policies or user preferences
+
+7. Booking API → Book flight and hotel
+
+8. Email → Send confirmation
 
 
 

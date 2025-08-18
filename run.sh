@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Exit immediately if a command fails
 set -e
 
 echo "🚀 Starting first-time setup..."
@@ -36,18 +35,41 @@ fi
 echo "🔀 Activating 'gemini' environment..."
 conda activate gemini
 
-# Step 5: Install required packages
-echo "📚 Installing required Python packages..."
-pip install --upgrade pip
-pip install google-generativeai httpx python-dotenv openai
+# Step 5: Install required packages if missing
+echo "📚 Checking and installing required Python packages..."
 
-# Step 6: Set API key
-if [ -z "$GOOGLE_API_KEY" ]; then
-  echo "🔐 Enter your Google API key:"
-  read -r GOOGLE_API_KEY
-  export GOOGLE_API_KEY=$GOOGLE_API_KEY
+# Upgrade pip
+pip install --upgrade pip
+
+# Define required packages
+REQUIRED_PACKAGES=(
+  google-generativeai
+  httpx
+  python-dotenv
+  openai
+  psycopg2-binary
+  chromadb
+  sentence_transformers
+)
+
+for pkg in "${REQUIRED_PACKAGES[@]}"; do
+  if pip show "$pkg" > /dev/null 2>&1; then
+    echo "✅ $pkg already installed."
+  else
+    echo "📦 Installing $pkg..."
+    pip install "$pkg"
+  fi
+done
+
+# Step 6: Load environment variables from .env
+if [ -f .env ]; then
+  echo "🔐 Loading environment variables from .env..."
+  export $(grep -v '^#' .env | xargs)
+else
+  echo "⚠️ .env file not found. Please create one with your GOOGLE_API_KEY."
+  exit 1
 fi
 
-# Step 7: Run your agent
+# Step 7: Run your main app
 echo "🚀 Running app.py..."
 python app.py

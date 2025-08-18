@@ -1,0 +1,4 @@
+User prefers 4-star hotels with amenities like pool, gym, and breakfast.
+Budget should be under 5000 rupees.
+Location is Amritsar, Punjab.
+Stay dates are next weekend.
