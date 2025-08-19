@@ -68,6 +68,12 @@ for holiday in available_dates:
 print("\n")
 # return ['2025-08-18', '2025-08-20', '2025-08-21']
 
+# Function to get intersection of holidays and relevant dates
+intersection_dates = list(set(dates) & set(available_dates))
+print("📅 Intersection of relevant dates and available holidays:")
+print(intersection_dates)
+print("\n")
+
 print("------------------------------------------------------------------------------------------------")
 
 # 4.1) Get Hotel Preferences based on the user's query using RAG (Retrieval-Augmented Generation).
@@ -80,7 +86,7 @@ print(hotel_preference)
 print(json.dumps(hotel_preference, indent=4))
 
 # 4.1) Function to Search for hotels with rating > 4 on available sunny days.
-selected_date = random.choice(['2025-08-18', '2025-08-20', '2025-08-21'])
+selected_date = random.choice(intersection_dates)
 hotels = index.search_hotels(destination, selected_date, hotel_preference) 
 print("Hotels with rating > 4 on available sunny days:")
 print(hotels)
